@@ -1,0 +1,53 @@
+ <!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+</head>
+<body>
+
+<h1>This page sees howlo</h1>
+<h2>This page sees howlo</h2>
+<h3 id = "eastereggtag" onclick = "easteregg()">This page sees howlo</h3>
+<h4>This page sees howlo</h4>
+<h5>This page sees howlo</h5>
+<h6>This page sees howlo</h6>
+
+<p><b>his is a paragraph.</b>
+<br>
+Ok? 
+</p>
+
+<br>
+
+
+<label for="fname">What's ur name</label>
+<input type="text" id="fname" name="fname">
+<button onclick="sayhello()" id="hellomsg">Click me</button>
+<br>
+<h1 id="hellomsg1">HELLO -button</h1>
+
+<br>
+<br>
+
+<a href="index.html">Go back :C</a> 
+
+<script>
+    //document.getElementById("demo").innerHTML = "Hello JavaScript!";
+function sayhello()
+{
+    var uname;
+    uname = document.getElementById("fname").value
+
+    document.getElementById("hellomsg").innerHTML = 'THat felt goood';
+    document.getElementById("hellomsg1").innerHTML = 'IF US AY SO ' + uname;
+    document.getElementById("fname").value = 'BRO';
+}
+
+function easteregg()
+{
+    document.getElementById("eastereggtag").innerHTML = 'THAT TICKLES!';
+}
+</script>
+
+</body>
+</html>
