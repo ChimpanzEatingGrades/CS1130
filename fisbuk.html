@@ -1,0 +1,94 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blue Social Media</title>
+    <style>
+        body {
+            background-color: #f0f2f5;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #1877f2;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            transition: background-color 0.5s;
+            cursor: pointer;
+        }
+
+        header:hover {
+            background-image: linear-gradient(to right, violet, indigo, blue, green, yellow, orange, red);
+            background-size: 200% 100%;
+            background-position: right bottom;
+            background-clip: text;
+            color: transparent;
+            transition: background-position 0.5s, color 0.5s;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        section {
+            margin-bottom: 20px;
+        }
+
+        footer {
+            background-color: #1877f2;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <h1>Fisbuk</h1>
+    </header>
+
+    <main>
+        <section>
+            <h2>Timeline</h2>
+            <p>This is where your posts would appear.</p>
+            <br>
+            <a href="index.html">Go back :C</a> 
+        </section>
+
+        <section>
+            <h2>Friends</h2>
+            <ul>
+                <li>Friend 1</li>
+                <li>Friend 2</li>
+                <li>Friend 3</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        &copy; 2023 Fisbuk. All rights reserved.
+    </footer>
+
+    <script>
+        document.getElementById('header').addEventListener('mouseover', function() {
+            this.style.backgroundPosition = 'left bottom';
+        });
+
+        document.getElementById('header').addEventListener('mouseout', function() {
+            this.style.backgroundPosition = 'right bottom';
+        });
+    </script>
+</body>
+</html>
