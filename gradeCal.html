@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+
+<html>
+
+<title>Grade Computation</title>
+
+<body>
+
+    <h1>This page computes grades from raw test scores</h1>
+
+    <br><br>
+    <label for="score">Score:</label>
+    <input id="score" type="number">
+    <label for="items">Items:</label>
+    <input id="items" type="number">
+    <label for="base">Base:</label>
+    <input id="base" type="number">
+    <br><br>
+    <button onclick="computeGrade()">Compute grade</button>
+    <button onclick="clearAll()">Clear</button>
+    <br><br>
+    <label for="grade">Grade:</label>
+    <input id="grade" type="number" readonly>
+    <br><br>
+    <label for="letter">Letter Grade:</label>
+    <input id="letter" type="text" readonly>
+    <br><br>
+    <h1 id="comment"></h1>
+
+
+    <a href="index.html">Go back home</a>
+
+    <script>
+
+        function computeGrade() {
+            var score, items, base, grade, letter, cm, cp;
+
+            score = document.getElementById("score").value * 1;
+            items = document.getElementById("items").value * 1;
+            base = document.getElementById("base").value * 1;
+
+            grade = base + (score / items) * (100 - base);
+            document.getElementById("grade").value = grade;
+
+            if (grade < 72) letter = 'F'
+            else if (grade <= 75) letter = 'D'
+            else if (grade <= 79) letter = 'C'
+            else if (grade <= 83) letter = 'C+'
+            else if (grade <= 87) letter = 'B'
+            else if (grade <= 91) letter = 'B+'
+            else letter = 'A'
+
+            document.getElementById("letter").value = letter;
+
+            switch (letter)
+            {
+                case 'F':
+                    cm = 'failing';
+                    cp = 'a';
+                    break;
+
+                case 'D':
+                    cm = 'passing';
+                    cp = 'a';
+                    break;
+
+                case 'C':
+                case 'C+':
+                    cm = 'average';
+                    cp = 'an';
+                    break;
+
+                case 'B':
+                    cm = 'good';
+                    cp = 'a';
+                    break;
+
+                case 'B+':
+                    cm = 'very good';
+                    cp = 'a';
+                    break;
+
+                default:
+                    cm = 'excellent';
+                    cp = 'an';
+                    break;
+            }
+
+            document.getElementById("comment").innerHTML = 'This is ' + cp + ' ' + cm + ' grade.';
+         
+
+        }
+
+        function clearAll()
+        {
+            document.getElementById("comment").innerHTML = '';
+            document.getElementById("score").value = '';
+            document.getElementById("items").value = '';
+            document.getElementById("base").value = '';
+            document.getElementById("letter").value = '';
+            document.getElementById("grade").value = '';
+        }
+
+    </script>
+
+</body>
+
+</html>

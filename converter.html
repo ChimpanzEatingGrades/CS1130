@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Page Title</title>
+</head>
+
+<body>
+
+<h1>Make conversions</h1>
+<label for="n1">Enter a number:</label>
+<input type="number" id="n1"><br><br>
+
+<button onclick="compute()">Compute</button>
+<button onclick="clear1()">Clear Values</button>
+
+<br><br>
+
+<label for="ftc">Fahrenheit to Celsius:</label>
+<input readonly type="number" id="ftc"><br><br>
+
+<label for="ctf">Celsius to Fahrenheit:</label>
+<input readonly type="number" id="ctf"><br><br>
+
+<label for="mtf">Meters to Feet:</label>
+<input readonly type="number" id="mtf"><br><br>
+
+<label for="ftm">Feet to Meters:</label>
+<input readonly type="number" id="ftm"><br><br>
+
+<script>
+
+function ftc(n)
+{
+    var fah;
+    fah = (n - 32) * 5 / 9;
+    console.log(fah)
+    console.log(n)
+    return fah;
+}
+
+function ctf(n)
+{
+    var cel;
+    cel = (n * 9 / 5) + 32;
+    console.log(cel)
+    console.log(n)
+    return cel;
+}
+
+function mtf(n)
+{
+    var met;
+    met = n * 3.28084;
+    console.log(met)
+    console.log(n)
+    return met;
+}
+
+function ftm(n)
+{
+    var feet;
+    feet = n / 3.28084;
+    console.log(feet)
+    console.log(n)
+    return feet;
+}
+
+function compute()
+{
+    var num;
+    num = document.getElementById("n1").value;
+    
+    //ctf(num);
+    //mtf(num);
+    //ftm(num);
+    document.getElementById("ftc").value = ftc(num);
+    document.getElementById("ctf").value = ctf(num);
+    document.getElementById("mtf").value = mtf(num);
+    document.getElementById("ftm").value = ftm(num);
+    
+}
+
+function clear1()
+{
+    //console.log("Passed")
+    document.getElementById("n1").value = '';
+    //console.log("Passed")
+    //console.log("Passed")
+    document.getElementById("ftc").value = '';
+
+    document.getElementById("ctf").value = '';
+    document.getElementById("mtf").value = '';
+    document.getElementById("ftm").value = '';
+}
+
+</script>
+
+<a href="index.html">Return sa bahay</a>
+
+</body>
+
+</html>
