@@ -1,5 +1,14 @@
 /* Place your CSS styles in this file */
 
+.titles
+{
+    text-align: center;
+    font-family: "Source Sans Pro", sans-serif;
+    font-weight: bold;
+    color: red;
+    border-style: outset;
+}
+
 h1 {
     text-align: center;
     font-family: "Source Sans Pro", sans-serif;
