@@ -2,12 +2,30 @@
 <html>
 
 <head>
-<title>Page Title</title>
+<title>Payroll</title>
+
+<meta charset="utf-8">
+<meta name="viewport" conent="width=device-width, initial-scale=1.0">
+
+
+<link rel="stylesheet" type="text/css" href="substyle.css">
+
+<link rel="stylesheet"
+href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+
+<link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" 
+rel="stylesheet">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Lora:wght@500&display=swap" rel="stylesheet">
+
+    
 </head>
 
 <body onload = "initls()">
 
-<h1>Make conversions</h1>
+<h1 class="subti">Employee Payroll</h1>
 <label for="en">Employee Name:</label>
 <input type="text" id="en"><br><br>
 
@@ -21,20 +39,31 @@
 <input type="number" id="da"><br><br>
 
 <button id="btnAdd">Add employee to table</button>
-<button id="btnClear">Clear Values</button>
+<button id="btnClear">Clear Table</button>
 <br><br>
 <button id="btnDel">Delete employee from table</button>
 <label for="term">Employee Number:</label>
 <input type="number" id="term"><br><br>
 
 
-<br><br>
+
 
 
 <p id = "empTable">
-    <!-- Centered Table --> 
+   
     
 </p>
+
+<br>
+
+<dialog id="dlgConfirmCancel">
+    <form method="dialog">
+       <h4 id="dlgmsg"></h4>   
+       <button id="btnConfirm" value="confirm" >Confirm</button>
+       <button id="btnCancel" value="cancel" >Cancel</button>
+       
+    </form>
+</dialog>
 
 <script>
 
@@ -43,7 +72,6 @@ var count;
 function initls()
 {
         employees=[];
-        //document.getElementById("items").value=employees.length;
         document.getElementById("empTable").innerHTML="";
 
             
@@ -94,17 +122,15 @@ function showchart()
                 tn+=employees[i].np;
         }
 
-        //tbody += "</tbody>";
+       
 
         // Generate table footer;
         tfooter ="<tfoot>";
         tfooter+="<tr>";
-        //tfooter+='<th>'+employees.length+'</th>';
-        //tfooter+='<th>Items</th>';
         tfooter+='<th></th>';
         tfooter+='<th></th>';
         tfooter+='<th></th>';
-        tfooter+='<th>Total Amount</th>';
+        tfooter+='<th>Total Amount:</th>';
         tfooter+='<th>'+ tg +'</th>';
         tfooter+='<th>'+ td +'</th>';
         tfooter+='<th>'+ tn +'</th>';
@@ -115,11 +141,6 @@ function showchart()
         document.getElementById("empTable").innerHTML=
            '<table style = "margin-left:auto; margin-right:auto" border=1>'+theader+tbody+tfooter+"</table>";
 }
-
-document.getElementById("btnClear").addEventListener("click", function(){
-     clear();
-});
-
 
 function clear()   
      {  
@@ -133,9 +154,7 @@ function clear()
 
 document.getElementById("btnAdd").addEventListener("click",()=>   
        {
-        
-        
-        
+    
         var employee = {
              "en": " ",
              "dw": 0,
@@ -166,36 +185,89 @@ document.getElementById("btnAdd").addEventListener("click",()=>
           console.log(employees.length);
 
           showchart();
+          clear();
         }
 
     });
 
-document.getElementById("btnDel").addEventListener("click",()=>   
+(() => {
+     initls();
+
+    const btnCancel = document.getElementById("btnCancel");
+    const btnConfirm= document.getElementById("btnConfirm");
+    const dlgConfirmCancel = document.getElementById("dlgConfirmCancel");
+    dlgConfirmCancel.returnValue = "confirm";
+
+   document.getElementById("btnDel").addEventListener("click",
+   ()=>{
+     var x,l;
+
+     l = employees.length;
+
+     x=document.getElementById("term").value*1;
+
+     --x;
+    
+     if (x>=0 && x<l) { 
+         document.getElementById("dlgmsg").innerHTML="Remove Employee?"  
+         dlgConfirmCancel.showModal();  
+     }
+   
+   });
+  
+    document.getElementById("btnClear").addEventListener("click",
+         ()=>{
+       
+         document.getElementById("dlgmsg").innerHTML="Clear Table?"  
+         dlgConfirmCancel.showModal();  
+
+         });
+
+      // Close the dialog box
+    btnConfirm.addEventListener("click", () => {
+        dlgConfirmCancel.returnValue="confirm";
+      dlgConfirmCancel.close("confirm");
+ 
+    });
+
+       // Close the dialog box
+      btnCancel.addEventListener("click", () => {
+         dlgConfirmCancel.returnValue="cancel";
+         dlgConfirmCancel.close("cancel");
+ 
+    });
+
+
+
+    dlgConfirmCancel.addEventListener("close",(e)=>
     {
+        var rst=e.target.returnValue;
+        var lblmsg = document.getElementById("dlgmsg").innerHTML;
+        if (rst=="confirm") {
+            if (lblmsg=="Clear the cart?" ){ 
+               initls();
+               showchart();
+            }  else if (lblmsg=="Delete the item?"){
+                var x=document.getElementById("term").value*1 - 1;
+                employees.splice(x,1);
+                showchart();
+                document.getElementById("term").value='';
 
-    var todelete;
-    var itemno;
+            } 
+        }
+        
+    });
 
-    itemno=document.getElementById("term").value;
-
-    todelete=confirm("Delete item no. "+itemno+"?");
-
-    if (todelete) {
-
-        employees.splice(itemno-1,1);
-        showchart();   
-    }
-
-});    
-
-
+    })(); 
 
 
 
 
 </script>
 
-<a href="index.html">Return sa bahay</a>
+<br>
+
+<a href="index.html">Return from whence thou came</a>
 
 </body>
 
