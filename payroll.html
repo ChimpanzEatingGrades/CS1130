@@ -67,7 +67,7 @@ rel="stylesheet">
 
 <script>
 
-var count;
+
 
 function initls()
 {
@@ -99,8 +99,8 @@ function showchart()
         // Generate Table Body
         l = employees.length;
       
-        charttext=""
-        tbody=''
+        charttext="";
+        tbody='';
         tg = 0;
         td = 0;
         tn = 0;
@@ -191,7 +191,8 @@ document.getElementById("btnAdd").addEventListener("click",()=>
     });
 
 (() => {
-     initls();
+    var count; 
+    initls();
 
     const btnCancel = document.getElementById("btnCancel");
     const btnConfirm= document.getElementById("btnConfirm");
@@ -209,7 +210,7 @@ document.getElementById("btnAdd").addEventListener("click",()=>
      --x;
     
      if (x>=0 && x<l) { 
-         document.getElementById("dlgmsg").innerHTML="Remove Employee?"  
+         document.getElementById("dlgmsg").innerHTML="Remove Employee?";  
          dlgConfirmCancel.showModal();  
      }
    
@@ -218,7 +219,7 @@ document.getElementById("btnAdd").addEventListener("click",()=>
     document.getElementById("btnClear").addEventListener("click",
          ()=>{
        
-         document.getElementById("dlgmsg").innerHTML="Clear Table?"  
+         document.getElementById("dlgmsg").innerHTML="Clear Table?";  
          dlgConfirmCancel.showModal();  
 
          });
@@ -241,13 +242,17 @@ document.getElementById("btnAdd").addEventListener("click",()=>
 
     dlgConfirmCancel.addEventListener("close",(e)=>
     {
+        console.log(e.target.returnValue);
         var rst=e.target.returnValue;
         var lblmsg = document.getElementById("dlgmsg").innerHTML;
+        console.log(rst);
+        console.log(lblmsg);
+       
         if (rst=="confirm") {
-            if (lblmsg=="Clear the cart?" ){ 
+            if (lblmsg=="Clear Table?" ){ 
                initls();
                showchart();
-            }  else if (lblmsg=="Delete the item?"){
+            }  else if (lblmsg=="Remove Employee?"){
                 var x=document.getElementById("term").value*1 - 1;
                 employees.splice(x,1);
                 showchart();
