@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>QPI Calculator</title>
+  <link rel="stylesheet" type="text/css" href="substyle.css">
+
+    <link rel="stylesheet"
+    href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" 
+    rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Lora:wght@500&display=swap" rel="stylesheet">
+
+    <style>
+        input {
+            text-align: center;
+        }
+        form {
+            display:flex;
+            align-items: center;
+            justify-content: center; 
+        }
+        input{
+            margin: 0 10px;
+        }
+        button {
+            margin: 0 auto;
+            display: block; 
+        }
+        
+        table {
+            margin: 0 auto;
+    
+        }
+
+        p {
+            font-family: 'Courier New', Courier, monospace;
+        }
+        
+    </style>
+</head>
+<body>
+  <h1 class="subti">Grade Calculator</h1>
+  <div>
+    <form id="subjectForm">
+      <input type="text" id="subjectName" placeholder="Subject">
+      <input type="number" id="subjectGrade" placeholder="Grade">
+      <input type="number" id="subjectUnits" placeholder="Units">
+      
+    </form>
+    <br>
+    <button type="button" onclick="saveSubject()">Add Subject</button>
+  </div>
+
+  <div>
+    <h2>Subjects</h2>
+    <table id="subjectsTable">
+      <thead>
+        <tr>
+          <th>Subject</th>
+          <th>Grade</th>
+          <th>Units</th>
+          <th>Letter Grade</th>
+          <th>QPE</th>
+        </tr>
+      </thead>
+      <tbody id="subjectsBody"></tbody>
+    </table>
+    <p id="qpiDisplay"></p>
+  </div>
+  <a href="index.html">Back to Home</a>
+  <script>
+    let subjects = [];
+
+    function saveSubject() {
+      const subject = {
+        sname: document.getElementById('subjectName').value,
+        grade: parseFloat(document.getElementById('subjectGrade').value),
+        units: parseInt(document.getElementById('subjectUnits').value),
+        letter: '',
+        QPE: 0.0
+      };
+      updateQPE(subject); // Update QPE and letter grade
+      subjects.push(subject);
+      displaySubjects();
+      displayQPI();
+      document.getElementById('subjectForm').reset();
+    }
+
+    function updateQPE(subject) {
+      if (subject.grade >= 92.0 && subject.grade <= 100.0) {
+        subject.letter = 'A';
+        subject.QPE = 4.0;
+      } else if (subject.grade >= 88.0 && subject.grade < 92.0) {
+        subject.letter = 'B+';
+        subject.QPE = 3.5;
+      } else if (subject.grade >= 84.0 && subject.grade < 88.0) {
+        subject.letter = 'B';
+        subject.QPE = 3.0;
+      } else if (subject.grade >= 80.0 && subject.grade < 84.0) {
+        subject.letter = 'C+';
+        subject.QPE = 2.5;
+      } else if (subject.grade >= 76.0 && subject.grade < 80.0) {
+        subject.letter = 'C';
+        subject.QPE = 2.0;
+      } else if (subject.grade >= 72.0 && subject.grade < 76.0) {
+        subject.letter = 'D';
+        subject.QPE = 1.0;
+      } else {
+        subject.letter = 'F';
+        subject.QPE = 0.0;
+      }
+    }
+
+    function displaySubjects() {
+      const subjectsBody = document.getElementById('subjectsBody');
+      subjectsBody.innerHTML = '';
+      subjects.forEach(subject => {
+        const row = subjectsBody.insertRow();
+        row.innerHTML = `
+          <td>${subject.sname}</td>
+          <td>${subject.grade}</td>
+          <td>${subject.units}</td>
+          <td>${subject.letter}</td>
+          <td>${subject.QPE}</td>
+        `;
+      });
+    }
+
+    function displayQPI() {
+      const qpiDisplay = document.getElementById('qpiDisplay');
+      const totalQPIDisplay = document.getElementById('totalQPIDisplay');
+      const qpi = calculateQPI(subjects);
+      const totalQPI = qpi.toFixed(2);
+      const totalQPILetterGrade = calculateLetterGrade(totalQPI);
+      const award = calculateAward(totalQPI);
+
+      qpiDisplay.innerHTML = "<p>Total QPI: " +  totalQPI + "<br><br>"+ "Letter Grade: " + totalQPILetterGrade + "<br><br>"  + "Award: " + award + "<br><br>" + "</p>";
+    }
+
+    function calculateLetterGrade(qpi) {
+      if (qpi >= 3.5) {
+        return 'A';
+      } else if (qpi >= 3.0) {
+        return 'B+';
+      } else if (qpi >= 2.5) {
+        return 'B';
+      } else if (qpi >= 2.0) {
+        return 'C+';
+      } else if (qpi >= 1.5) {
+        return 'C';
+      } else if (qpi >= 1.0) {
+        return 'D';
+      } else {
+        return 'F';
+      }
+    }
+
+    function calculateAward(qpi) {
+      if (qpi >= 3.4 && qpi <= 3.69) {
+        return "Dean's List";
+      } else if (qpi >= 3.7){
+        return "President's List";
+      }
+      else if (qpi < 3.7 && qpi >= 1.6) {
+        return "None";
+      }
+      else if (qpi < 1.6) {
+        return "You are Failing";
+      }
+
+    }
+
+    function calculateQPI(subjects) {
+      let totalUnits = 0;
+      let totalQPS = 0;
+      subjects.forEach(subject => {
+        totalQPS += subject.units * subject.QPE;
+        totalUnits += subject.units;
+      });
+      return totalQPS / totalUnits;
+    }
+  </script>
+</body>
+</html>
