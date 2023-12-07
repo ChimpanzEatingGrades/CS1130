@@ -26,7 +26,7 @@ header{
 }
 
 body{
-    background: linear-gradient(rgba(18, 7, 60,.9), rgba(221, 242, 253, .2)), url("../img/bg.jpg") center/cover no-repeat fixed;
+    background: linear-gradient(rgba(18, 7, 60,.9), rgba(221, 242, 253, .2)), url("./img/bg.jpg") center/cover no-repeat fixed;
 }
 
 
